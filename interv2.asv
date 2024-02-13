@@ -1,0 +1,17 @@
+% Example matrices for x and y coordinates
+x_coords = [1, 2, 3, 5];
+y_coords = [1, 2, 3, 5];
+
+% Plot horizontal lines
+for i = 1:numel(y_coords)
+    line([min(x_coords), max(x_coords)], [y_coords(i), y_coords(i)], 'Color', 'k');
+    hold on;
+end
+
+% Plot vertical lines
+for i = 1:numel(x_coords)
+    line([x_coords(i), x_coords(i)], [min(y_coords), max(y_coords)], 'Color', 'k');
+    hold on;
+end
+axis equal;
+
