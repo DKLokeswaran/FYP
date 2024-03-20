@@ -22,15 +22,15 @@ def draw_point(screen, point):
 def create_vehicles(intersections):
     vehicles=[]
     print("Vechicles:")
-    for i in range(10):
+    for i in range(2):
         intsec=random.choice(intersections)
         vehicle=Vehicle(intsec,30/FPS, Point(intsec.x_coords,intsec.y_coords))
         #vehicle.set_cordinates(intsec.x_coords,intsec.y_coords)
         vehicles.append(vehicle)
-        print(f"{vehicle.co_ordinate.x_coords},{vehicle.co_ordinate.y_coords}", end="")
-        print(f"({vehicle.to.x_coords},{vehicle.to.y_coords})")
-        #print(vehicle.to)
-    print('\n')
+    #     print(f"{vehicle.co_ordinate.x_coords},{vehicle.co_ordinate.y_coords}", end="")
+    #     print(f"({vehicle.to.x_coords},{vehicle.to.y_coords})")
+    #     #print(vehicle.to)
+    # print('\n')
     return vehicles
 
 # Example usage:
@@ -50,20 +50,20 @@ for road in Roads:
     for road1 in Roads:
         if(road.x_coords!=0 and road1.y_coords!=0):
             intersections.append(Intersection(road.x_coords,road1.y_coords))
-print("INtersections:")
-for i in intersections:
-    print({i.x_coords,i.y_coords})
-print('\n')
+#print("INtersections:")
+#for i in intersections:
+    #print({i.x_coords,i.y_coords})
+#print('\n')
 
 
 for i in intersections:
     i.set_neighbors(intersections)
-    for j in i.neighbors:
-        if(j!=None):
-            print(f"({j.x_coords},{j.y_coords})", end=" ")
-        else:
-            print("None", end=" ")
-    print('\n')
+    # for j in i.neighbors:
+    #     if(j!=None):
+    #         #print(f"({j.x_coords},{j.y_coords})", end=" ")
+    #     else:
+    #         #print("None", end=" ")
+    # print('\n')
     
 
 

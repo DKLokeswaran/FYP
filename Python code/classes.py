@@ -1,7 +1,7 @@
 import random
 
 class Road:
-    def __init__(self, x_coords, y_coords):
+    def __init__(self, x_coords,y_coords):
         self.x_coords = x_coords
         self.y_coords = y_coords
 
@@ -33,9 +33,39 @@ class Vehicle:
 
     def move(self):
         if(self.From.x_coords==self.to.x_coords):
-            self.co_ordinate.update(0,self.speed)
+            if(self.From.y_coords>self.to.y_coords):
+                self.co_ordinate.update(0,-self.speed)
+                if(self.co_ordinate.y_coords<self.to.y_coords):
+                    self.change_dest()
+            if(self.From.y_coords<self.to.y_coords):
+                self.co_ordinate.update(0,self.speed)
+                if(self.co_ordinate.y_coords>self.to.y_coords):
+                    self.change_dest()
         if(self.From.y_coords==self.to.y_coords):
-            self.co_ordinate.update(self.speed,0)
+            if(self.From.x_coords>self.to.x_coords):
+                self.co_ordinate.update(-self.speed,0)
+                if(self.co_ordinate.x_coords<self.to.x_coords):
+                    self.change_dest()
+            if(self.From.x_coords<self.to.x_coords):
+                self.co_ordinate.update(self.speed,0)
+                if(self.co_ordinate.x_coords>self.to.x_coords):
+                    self.change_dest()
+        
+        # if(self.From.x_coords==self.to.x_coords and self.From.y_coords==self.to.y_coords):
+            
+    
+    def change_dest(self):
+        temp=[]
+        for n in self.to.neighbors:
+            if(n!=self.From):
+                temp.append(n)
+        self.From=self.to
+        print(temp==[])
+        self.to=random.choice(temp)
+        print("destination changed")
+        print(self.From)
+        print(self.to)
+        
 
 
 class Intersection:
