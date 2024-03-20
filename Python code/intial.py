@@ -1,6 +1,6 @@
 import pygame
 from second import create_array, create_roads
-from classes import Road,Intersection,Vehicle,Point
+from classes import Road,Intersection,Vehicle,Point,RSU
 import random
 
 
@@ -16,15 +16,15 @@ def draw_lines(screen, Roads):
             pygame.draw.line(screen, (255, 255, 255), (0, y), (screen.get_width(), y))
 
 
-def draw_point(screen, point):
-    pygame.draw.circle(screen, (255, 0, 0), (point.x_coords, point.y_coords), 5)
+def draw_point(screen, point,color,r):
+    pygame.draw.circle(screen, color, (point.x_coords, point.y_coords), r)
 
 def create_vehicles(intersections):
     vehicles=[]
     print("Vechicles:")
-    for i in range(2):
+    for i in range(20):
         intsec=random.choice(intersections)
-        vehicle=Vehicle(intsec,30/FPS, Point(intsec.x_coords,intsec.y_coords))
+        vehicle=Vehicle(intsec,random.randint(10,100)/FPS, Point(intsec.x_coords,intsec.y_coords))
         #vehicle.set_cordinates(intsec.x_coords,intsec.y_coords)
         vehicles.append(vehicle)
     #     print(f"{vehicle.co_ordinate.x_coords},{vehicle.co_ordinate.y_coords}", end="")
@@ -65,10 +65,17 @@ for i in intersections:
     #         #print("None", end=" ")
     # print('\n')
     
-
+def create_rsus():
+    temp=[]
+    for i in range(15):
+        t=random.choice(intersections)
+        x=random.choice([random.randint(t.x_coords+10,t.x_coords+25),random.randint(t.x_coords-25,t.x_coords-10)])
+        y=random.choice([random.randint(t.y_coords+10,t.y_coords+25),random.randint(t.y_coords-25,t.y_coords-10)])
+        temp.append(RSU(x,y))
+    return temp
 
 vehicles=create_vehicles(intersections)
-
+rsus=create_rsus()
 
 
 def move_vehicle(vehicles):
@@ -84,8 +91,13 @@ while running:
     draw_lines(screen, Roads)
     #vehicles=create_vehicles(intersections)
     for v in vehicles:
-        draw_point(screen,v.co_ordinate)
+        draw_point(screen,v.co_ordinate,(255, 0, 0),5)
         v.move()
+    for r in rsus:
+        draw_point(screen,Point(r.x_coords,r.y_coords),( 0, 0,255),10)
+        for v in vehicles:
+            if(((r.x_coords-v.co_ordinate.x_coords)**2+(r.y_coords-v.co_ordinate.y_coords)**2)<r.r**2):
+                pygame.draw.line(screen, (0, 255, 0), (r.x_coords, r.y_coords), (v.co_ordinate.x_coords,v.co_ordinate.y_coords))
 
 
     move_vehicle(vehicles)

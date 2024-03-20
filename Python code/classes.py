@@ -57,14 +57,15 @@ class Vehicle:
     def change_dest(self):
         temp=[]
         for n in self.to.neighbors:
-            if(n!=self.From):
+            if(n!=self.From and n!=None):
                 temp.append(n)
         self.From=self.to
-        print(temp==[])
+        # print(temp==[])
+        # print(temp)
         self.to=random.choice(temp)
-        print("destination changed")
-        print(self.From)
-        print(self.to)
+        # print("destination changed")
+        # print(self.From)
+        # print(self.to)
         
 
 
@@ -91,3 +92,11 @@ class Intersection:
                     else:
                         if((self.neighbors[3]==None) or self.neighbors[3].x_coords>i.x_coords):
                             self.neighbors[3]=i
+
+class RSU:
+    def __init__(self, x_coords, y_coords):
+        self.x_coords = x_coords
+        self.y_coords = y_coords
+        self.r=25
+        
+    
